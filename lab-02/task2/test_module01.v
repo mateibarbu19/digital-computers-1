@@ -1,4 +1,4 @@
-module test_module01;
+module test_module01();
 
 	// Inputs
 	reg in;
@@ -50,5 +50,5 @@ module test_module01;
 		sel = 2'b11;
 		#10;
 	end
-      
+
 endmodule

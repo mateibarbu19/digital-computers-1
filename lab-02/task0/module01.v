@@ -1,8 +1,8 @@
 module module01(
-  output out,
-  input in
-  );
+   output out,
+    input in
+);
 
-  not(out, in);
+    not(out, in);
 
 endmodule

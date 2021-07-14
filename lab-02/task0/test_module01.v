@@ -1,4 +1,4 @@
-module test_module01;
+module test_module01();
 
 	// Inputs
 	reg in;
