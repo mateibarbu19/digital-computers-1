@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module debouncer_test;
+module debouncer_test();
     wire out;
     reg in;
     reg clk;

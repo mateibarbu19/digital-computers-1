@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 `include "lib/defines.vh"
 
-module logical_unit_test;
-`include "lib/helpers.vh"
+module logical_unit_test();
+	`include "lib/helpers.vh"
 
 	// Inputs
 	reg [3:0] operand1;
