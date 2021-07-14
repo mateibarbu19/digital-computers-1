@@ -73,17 +73,17 @@ module ex4(
                     mutant = 0;
                     if (G_debounced & ~not_ok) begin
                         currentState = STATE_GG;
-                        end else if (in) begin
-                            currentState = STATE_0;
-                        end
+                    end else if (in) begin
+                        currentState = STATE_0;
                     end
+                end
                     
                 STATE_GG: begin
                     mutant = 0;
                     if (T_debounced & ~not_ok) begin
                         currentState = STATE_GGT;
-                    end else if (in & ~not_ok) begin
-                        currentState = STATE_G;
+                    end else if (G_debounced & ~not_ok) begin
+                        currentState = STATE_GG;
                     end else if (in) begin
                         currentState = STATE_0;
                     end
