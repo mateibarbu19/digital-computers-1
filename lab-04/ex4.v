@@ -94,6 +94,8 @@ module ex4(
                     if (C_debounced & ~not_ok) begin
                         // mutant    = 1;
                         currentState = STATE_GGTC;
+                    end else if (G_debounced & ~not_ok) begin
+                        currentState = STATE_G;
                     end else if (in) begin
                         currentState = STATE_0;
                     end
