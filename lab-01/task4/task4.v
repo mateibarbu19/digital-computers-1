@@ -4,12 +4,12 @@ module task4(
     input [0:1] sel,
     output out
 );
-
+    
     // Dataflow programming style.
-    assign out =
+    assign out = 
         (~sel[0] & ~sel[1] & ~(a & b)) |
-        (~sel[0] & sel[1] & (a & b)) |
-        (sel[0] & ~sel[1] & (a | b)) |
-        (sel[0] & sel[1] & (a ^ b));
-	
+        (~sel[0] &  sel[1] &  (a & b)) |
+        (sel[0]  & ~sel[1] &  (a | b)) |
+        (sel[0]  &  sel[1] &  (a ^ b));
+    
 endmodule

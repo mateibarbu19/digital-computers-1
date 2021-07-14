@@ -1,4 +1,4 @@
-module test_task5;
+module test_task5();
 
     // Inputs.
     reg a;

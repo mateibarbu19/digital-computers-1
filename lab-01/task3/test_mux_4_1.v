@@ -1,4 +1,4 @@
-module test_mux_4_1;
+module test_mux_4_1();
 
     // Inputs.
     reg a;

@@ -1,4 +1,4 @@
-module test_other_xor;
+module test_other_xor();
 
     // Inputs.
     reg a;

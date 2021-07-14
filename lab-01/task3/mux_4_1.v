@@ -6,7 +6,7 @@ module mux_4_1(
     input in3,
     input sel0,
     input sel1
-    );
+);
 
     wire notsel0;
     wire notsel1;

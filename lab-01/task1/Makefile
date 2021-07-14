@@ -4,13 +4,13 @@ SIM = vvp
 
 .PHONY: build clean
 
-build: exemplu
+build: example
 
-exemplu: exemplu.v test_exemplu.v
+example: example.v test_example.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: exemplu
+run: example
 	$(SIM) $<
 
 clean:
-	rm -rf exemplu waves.vcd
+	rm -rf example waves.vcd

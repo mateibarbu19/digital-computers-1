@@ -1,6 +1,6 @@
 //`timescale 1ns / 1ps
 
-module test_task4;
+module test_task4();
 
     // Inputs.
     reg a;
