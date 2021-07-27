@@ -26,12 +26,6 @@ module ordinator_8bit (
     reg [7:0] tmp_result;
     reg [7:0] tmp_result2;
 
-    always @(reset) begin
-        if (!reset) begin
-            ready = 1;
-        end
-    end
-
     always @(*) begin
         if (reset) begin
             ready      <= 0;
@@ -50,7 +44,8 @@ module ordinator_8bit (
         end else begin
             currentState = nextState;
         end
-        ready = 1;
+        ready       = 1;
+        tmp_result2 = tmp_result;
     end
 
     reg        operation;
@@ -62,14 +57,14 @@ module ordinator_8bit (
     ripple_carry_8bit adder (
         .carry_out(add_carry),
         .sum(sum),
-        .A(tmp_result),
+        .A(tmp_result2),
         .B(in),
         .carry_in(1'b0)
     );
     subtractor_8bit subtr (
         .carry_out(sub_carry),
         .result(diff),
-        .A(tmp_result),
+        .A(tmp_result2),
         .B(in),
         .carry_in(1'b0)
     );
@@ -102,7 +97,7 @@ module ordinator_8bit (
                 if (in == 3) begin
                     nextState <= STATE_INITIAL;
                 end else if (in > 3) begin
-                    @(posedge clk);
+                    // @(posedge clk);
                     case (operation)
                         0: tmp_result = sum; // tmp_result + in;
                         1: tmp_result = diff; //tmp_result - in;
@@ -120,7 +115,6 @@ module ordinator_8bit (
                 ready     <= 0;
                 nextState <= STATE_INITIAL;
             end
-
         endcase
     end
 endmodule
