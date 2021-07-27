@@ -1,6 +1,7 @@
 CC = iverilog
 FLAGS = -Wall -Winfloop
 SIM = vvp
+TARGETS = module01 module02
 
 .PHONY: build clean
 
@@ -12,10 +13,11 @@ module01: module01.v test_module01.v
 module02: module02.v test_module02.v
 	$(CC) $(FLAGS) -o $@ $^
 
-
-run: module01 module02
-	$(SIM) module01
-	$(SIM) module02
+run: $(TARGETS)
+	@for entry in $(TARGETS);          \
+	do                                 \
+		$(SIM) $${entry};              \
+	done
 
 clean:
 	rm -rf module01 module02 waves*.vcd

@@ -32,9 +32,9 @@ ordinator_8bit: ordinator_8bit_test.v ordinator_8bit.v ripple_carry_8bit.v \
 
 run: $(TARGETS)
 	@for entry in $(TARGETS);          \
-    do                                 \
+	do                                 \
 		$(SIM) $${entry};              \
-    done
+	done
 
 clean:
 	rm -rf $(TARGETS) waves*.vcd

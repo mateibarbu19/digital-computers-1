@@ -13,9 +13,11 @@ unlock: unlock.v counter.v unlock_test.v
 counter: counter.v counter_test.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: unlock counter
-	$(SIM) unlock
-	$(SIM) counter
+run: $(TARGETS)
+	@for entry in $(TARGETS);          \
+	do                                 \
+		$(SIM) $${entry};              \
+	done
 
 clean:
 	rm -rf $(TARGETS) waves*.vcd

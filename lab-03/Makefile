@@ -13,9 +13,11 @@ logical_unit: logical_unit.v logical_unit_test.v
 debouncer: debouncer.v debouncer_test.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: logical_unit debouncer
-	$(SIM) logical_unit
-	$(SIM) debouncer
+run: $(TARGETS)
+	@for entry in $(TARGETS);          \
+	do                                 \
+		$(SIM) $${entry};              \
+	done
 
 clean:
 	rm -rf $(TARGETS) waves*.vcd
