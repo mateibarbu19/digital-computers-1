@@ -1,7 +1,7 @@
 // `timescale 1ns / 1ps
 
 module counter(
-    input [15:0]      ascii_in, // 2 digits of ascii
+    input      [15:0] ascii_in, // 2 digits of ascii
     output reg [15:0] counter,
     input             decrement,
     output reg        done,
@@ -9,20 +9,18 @@ module counter(
     input             clock
 );
 
-    always@(posedge clock) begin
-        if (reset)
+    always @(posedge clock) begin
+        if (reset) begin
             counter <= ascii_in;
-        else begin
+        end else begin
             if (decrement) begin
                 if (counter == "UN") begin
                     done = 1;
-                end
-                else begin
+                end else begin
                     if (counter == "01") begin
                         counter = "UN";
                         done    = 1;
-                    end
-                    else begin
+                    end else begin
                         if (counter[7:0] == "0") begin
                             counter[7:0] = "9";
                             counter[15:8] = counter[15:8] - 1;

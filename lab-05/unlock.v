@@ -16,14 +16,14 @@ module unlock(
               STATE_UNLOCK_2 = 4'b1001,
               STATE_UNLOCK_3 = 4'b1010;
     
-    reg [3:0]   state;
-    reg [3:0]   next_state;
-    reg [7:0]   read;
+    reg  [3:0]  state;
+    reg  [3:0]  next_state;
+    reg  [7:0]  read;
     reg         decrement;
-    reg [1:0]   fail;
-    reg [15:0]  timer;
+    reg  [1:0]  fail;
+    reg  [15:0] timer;
     reg         timer_reset;
-    reg [7:0]   password [0:3];
+    reg  [7:0]  password [0:3];
     wire [15:0] time_counter;
     wire        done;
     
@@ -42,20 +42,20 @@ module unlock(
             state = next_state;
 
             if (state == STATE_COUNTER) begin
-                if (!decrement) begin
-                    fail        <= 0;
-                    timer       <= "03";
-                    decrement   <= 1;
-
-                    timer_reset <= 1;
-                    @(posedge clk);
-                    timer_reset <= 0;
-                end else if (done) begin
-                    decrement  = 0;
-                    state      = STATE_INIT;
-                    next_state = STATE_INIT;
-
-                    @(posedge clk);
+                if (fail == 3) begin
+                    fail        = 0;
+                    timer       = "03";
+                    decrement   = 1;
+                    timer_reset = 1;
+                end else begin
+                    timer_reset = 0;
+                    if (done) begin
+                        decrement   = 0;
+                        // Uncomment to reduce the waitting time by a clock
+                        // cycle.
+                        // state    = STATE_INIT;
+                        next_state  = STATE_INIT;
+                    end
                 end
             end
         end
@@ -68,11 +68,8 @@ module unlock(
     end
     
     always @(ascii_in) begin
-        next_state = state;
-        
         case (state)
             STATE_INIT: begin
-                $display("%c%c%c%c", password[0], password[1], password[2], password[3]);
                 if (read == password[0]) begin
                     next_state = STATE_1;
                 end else begin
@@ -123,7 +120,7 @@ module unlock(
                 // which is decremented at every positive edge of the clock.
                 // Taking into account the overhead of first resting the
                 // counter, and then the after time to wait, the total waiting
-                // period is 5 clock cycles.
+                // period is 6 clock cycles.
             end
 
             STATE_UNLOCK: begin
@@ -157,7 +154,6 @@ module unlock(
             // If the number of incorrect inputs has reached 3, wait for the
             // next positive clock edge and discard any input in the meanwhile
             // to make sure that the transition is made successfully.
-            @(posedge clk);
         end
     end
     
