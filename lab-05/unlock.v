@@ -30,31 +30,31 @@ module unlock(
     
     always @(posedge clk) begin
         if (reset) begin
-            state       = STATE_INIT;
-            fail        = 2'b00;
-            timer_reset = 0;
-            decrement   = 0;
-            password[0] = "A";
-            password[1] = "C";
-            password[2] = "B";
-            password[3] = "D";
+            state       <= STATE_INIT;
+            fail        <= 2'b00;
+            timer_reset <= 0;
+            decrement   <= 0;
+            password[0] <= "A";
+            password[1] <= "C";
+            password[2] <= "B";
+            password[3] <= "D";
         end else begin
             state = next_state;
 
             if (state == STATE_COUNTER) begin
                 if (fail == 3) begin
-                    fail        = 0;
-                    timer       = "03";
-                    decrement   = 1;
-                    timer_reset = 1;
+                    fail        <= 0;
+                    timer       <= "03";
+                    decrement   <= 1;
+                    timer_reset <= 1;
                 end else begin
-                    timer_reset = 0;
+                    timer_reset <= 0;
                     if (done) begin
-                        decrement   = 0;
+                        decrement   <= 0;
                         // Uncomment to reduce the waitting time by a clock
                         // cycle.
-                        // state    = STATE_INIT;
-                        next_state  = STATE_INIT;
+                        // state    <= STATE_INIT;
+                        next_state  <= STATE_INIT;
                     end
                 end
             end
@@ -161,7 +161,7 @@ module unlock(
 
     counter counter1(
         .ascii_in(timer),
-        .counter(time_counter),
+        .cnt(time_counter),
         .decrement(decrement),
         .done(done),
         .reset(timer_reset),

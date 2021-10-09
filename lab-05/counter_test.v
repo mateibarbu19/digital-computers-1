@@ -15,7 +15,7 @@ module counter_test();
     // Instantiate the Unit Under Test (UUT)
     counter uut (
         .ascii_in(contor),
-        .counter(ascii_out),
+        .cnt(ascii_out),
         .done(done),
         .reset(reset),
         .clock(clock),

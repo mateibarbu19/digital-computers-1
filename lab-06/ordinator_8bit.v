@@ -21,10 +21,10 @@ module ordinator_8bit (
     localparam STATE_WAIT_NR = 3'd2;
     localparam STATE_RESULT  = 3'd3;
 
-    reg [2:0] currentState;
-    reg [2:0] nextState;
+    reg [1:0] currentState;
+    reg [1:0] nextState;
     reg [7:0] tmp_result;
-    reg [7:0] tmp_result2;
+    reg [7:0] last_tmp_result;
 
     always @(*) begin
         if (reset) begin
@@ -44,8 +44,8 @@ module ordinator_8bit (
         end else begin
             currentState = nextState;
         end
-        ready       = 1;
-        tmp_result2 = tmp_result;
+        ready           = 1;
+        last_tmp_result = tmp_result;
     end
 
     reg        operation;
@@ -57,14 +57,14 @@ module ordinator_8bit (
     ripple_carry_8bit adder (
         .carry_out(add_carry),
         .sum(sum),
-        .A(tmp_result2),
+        .A(last_tmp_result),
         .B(in),
         .carry_in(1'b0)
     );
     subtractor_8bit subtr (
         .carry_out(sub_carry),
         .result(diff),
-        .A(tmp_result2),
+        .A(last_tmp_result),
         .B(in),
         .carry_in(1'b0)
     );
@@ -97,7 +97,6 @@ module ordinator_8bit (
                 if (in == 3) begin
                     nextState <= STATE_INITIAL;
                 end else if (in > 3) begin
-                    // @(posedge clk);
                     case (operation)
                         0: tmp_result = sum; // tmp_result + in;
                         1: tmp_result = diff; //tmp_result - in;
@@ -111,6 +110,7 @@ module ordinator_8bit (
                 nextState <= STATE_INITIAL;
             end
 
+            // This default case is important! The currentState may be 2b'xx.
             default: begin
                 ready     <= 0;
                 nextState <= STATE_INITIAL;

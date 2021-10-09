@@ -1,7 +1,9 @@
 # read design
 read_verilog counter.v
-read_verilog unlock.v
+read_verilog -noopt unlock.v
 
+
+write_verilog unlock
 # elaborate design hierarchy
 hierarchy -check
 
@@ -14,6 +16,9 @@ proc; opt; fsm; opt; memory; opt
 
 # cleanup
 clean
+
+
+write_json fisierulmeu
 
 # view the resulting schematic
 show -colors 1 -stretch -prefix schematic unlock

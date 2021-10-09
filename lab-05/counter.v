@@ -2,7 +2,7 @@
 
 module counter(
     input      [15:0] ascii_in, // 2 digits of ascii
-    output reg [15:0] counter,
+    output reg [15:0] cnt,
     input             decrement,
     output reg        done,
     input             reset,
@@ -11,21 +11,21 @@ module counter(
 
     always @(posedge clock) begin
         if (reset) begin
-            counter <= ascii_in;
+            cnt <= ascii_in;
         end else begin
             if (decrement) begin
-                if (counter == "UN") begin
-                    done = 1;
+                if (cnt == "UN") begin
+                    done <= 1;
                 end else begin
-                    if (counter == "01") begin
-                        counter = "UN";
+                    if (cnt == "01") begin
+                        cnt     = "UN";
                         done    = 1;
                     end else begin
-                        if (counter[7:0] == "0") begin
-                            counter[7:0] = "9";
-                            counter[15:8] = counter[15:8] - 1;
+                        if (cnt[7:0] == "0") begin
+                            cnt[7:0]  = "9";
+                            cnt[15:8] = cnt[15:8] - 1;
                         end else begin
-                            counter[7:0] = counter[7:0] - 1;
+                            cnt[7:0] = cnt[7:0] - 1;
                         end
                         done = 0;
                     end

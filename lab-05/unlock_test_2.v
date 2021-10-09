@@ -1,6 +1,6 @@
 // `timescale 1ns / 1ps
 
-module unlock_test();
+module unlock_test_2();
     
     // Inputs
     reg [7:0] ascii_in;
@@ -17,8 +17,8 @@ module unlock_test();
         #5 clk <= ~clk;
     
     initial begin
-        $dumpfile("waves_unlock.vcd");
-        $dumpvars(0, unlock_test);
+        $dumpfile("waves_unlock2.vcd");
+        $dumpvars(0, unlock_test_2);
 
         // Initialize Inputs
         ascii_in = 0;
