@@ -1,5 +1,3 @@
-//`timescale 1ns / 1ps
-
 module test_example();
 
     // Inputs.
@@ -27,6 +25,6 @@ module test_example();
         #100 in = 1;
         #100 in = 0;
         #100;
-	end
+    end
 
 endmodule
