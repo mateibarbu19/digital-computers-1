@@ -3,6 +3,6 @@ module module02(
     input in
 );
 
-  assign out = ~in;
+    assign out = ~in;
 
 endmodule

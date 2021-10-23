@@ -4,7 +4,9 @@ module test_module02();
 	reg [1:0] sel;
 
 	// Outputs
+	/* verilator lint_off UNUSED */
 	wire [3:0] out;
+	/* verilator lint_on UNUSED */
 
 	// Instantiate the Unit Under Test (UUT)
 	module02 uut (

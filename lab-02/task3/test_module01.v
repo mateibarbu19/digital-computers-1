@@ -2,7 +2,9 @@ module test_module01();
 
     reg clk;
     reg reset;
+    /* verilator lint_off UNUSED */
     wire slow_clk;
+    /* verilator lint_on UNUSED */
 
     // Instantiate the Unit Under Test (UUT)
     module01 uut (

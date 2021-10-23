@@ -4,9 +4,9 @@ module module02(
     input in
 );
 
-  assign out = {sel[1]  & sel[0]  & in,
-                sel[1]  & ~sel[0] & in,
-                ~sel[1] & sel[0]  & in,
-                ~sel[1] & ~sel[0] & in};
+    assign out = { sel[1] &  sel[0] & in,
+                  sel[1] & ~sel[0] & in,
+                  ~sel[1] &  sel[0] & in,
+                  ~sel[1] & ~sel[0] & in};
 
 endmodule
