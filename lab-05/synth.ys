@@ -17,7 +17,6 @@ proc; opt; fsm; opt; memory; opt
 # cleanup
 clean
 
-
 write_json connections.json
 
 # view the resulting schematic

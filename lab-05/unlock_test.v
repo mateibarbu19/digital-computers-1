@@ -1,5 +1,3 @@
-// `timescale 1ns / 1ps
-
 module unlock_test();
     
     // Inputs
@@ -30,6 +28,7 @@ module unlock_test();
         // Wait 100 ns for global reset to finish
         #98;
         reset    = 0;
+        // #2;
         ascii_in = "D";
         #10
         ascii_in = "C";

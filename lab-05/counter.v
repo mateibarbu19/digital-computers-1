@@ -1,5 +1,3 @@
-// `timescale 1ns / 1ps
-
 module counter(
     input      [15:0] ascii_in, // 2 digits of ascii
     output reg [15:0] cnt,
@@ -13,7 +11,7 @@ module counter(
         if (reset) begin
             cnt <= ascii_in;
         end else begin
-            if (decrement && cnt != "UN") begin
+            if (decrement && !(cnt == "UN")) begin
                 if (cnt == "01") begin
                     cnt     <= "UN";
                     done    <= 1;
