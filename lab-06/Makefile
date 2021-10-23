@@ -30,6 +30,10 @@ ordinator_8bit.vvp: ordinator_8bit_test.v ordinator_8bit.v ripple_carry_8bit.v \
 				subtractor_8bit.v full_adder.v half_adder_structural.v
 	$(CC) $(FLAGS) -o $@ $^
 
+synthesis: synth.ys
+	yosys synth.ys
+	rm -f *.pid
+
 run: $(TARGETS)
 	@for entry in $(TARGETS);          \
 	do                                 \
@@ -37,4 +41,4 @@ run: $(TARGETS)
 	done
 
 clean:
-	rm -rf $(TARGETS) waves*.vcd
+	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid *.json ordinator_8bit

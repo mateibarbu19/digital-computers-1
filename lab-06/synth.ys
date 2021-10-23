@@ -1,6 +1,9 @@
 # read design
-read_verilog counter.v
-read_verilog -noopt unlock.v
+read_verilog half_adder_structural.v
+read_verilog full_adder.v
+read_verilog ripple_carry_8bit.v
+read_verilog subtractor_8bit.v
+read_verilog -noopt ordinator_8bit.v
 
 # elaborate design hierarchy
 hierarchy -check
@@ -18,4 +21,4 @@ clean
 write_json connections.json
 
 # view the resulting schematic
-show -colors 1 -stretch -prefix schematic unlock
+show -colors 1 -stretch -prefix schematic ordinator_8bit
