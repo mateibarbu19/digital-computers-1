@@ -7,8 +7,10 @@ module ripple_carry_8bit (
     input  [7:0] B,
     input        carry_in
 );
-    
+
+    /* verilator lint_off UNOPTFLAT */
     wire [8:0] carry;
+    /* verilator lint_on UNOPTFLAT */
     assign carry[0]  = carry_in;
     assign carry_out = carry[8];
 

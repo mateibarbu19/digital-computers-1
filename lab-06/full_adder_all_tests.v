@@ -6,8 +6,10 @@ module full_adder_all_tests ();
     reg [2:0] inputs;
 
     // Outputs
+    /* verilator lint_off UNUSED */
     wire sum;
     wire carry_out;
+    /* verilator lint_on UNUSED */
 
     // Instantiate the Unit Under Test (UUT)
     full_adder uut (

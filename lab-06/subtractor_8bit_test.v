@@ -8,9 +8,11 @@ module subtractor_8bit_test ();
 	reg       carry_in;
 
 	// Outputs
-	wire       carry_out;
-	wire [7:0] result;
+	/* verilator lint_off UNUSED */
 	reg        ok;
+	wire       carry_out;
+	/* verilator lint_on UNUSED */
+	wire [7:0] result;
 
 	// Instantiate the Unit Under Test (UUT)
 	subtractor_8bit uut (
@@ -97,7 +99,6 @@ module subtractor_8bit_test ();
 		end else begin
 			ok = 1'bx;
 		end
-
 	end
       
 endmodule

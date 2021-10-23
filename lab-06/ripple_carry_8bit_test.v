@@ -8,9 +8,11 @@ module ripple_carry_8bit_test ();
     reg       carry_in;
 
     // Outputs
-    wire       carry_out;
-    wire [7:0] sum;
+    /* verilator lint_off UNUSED */
     reg        ok;
+    wire       carry_out;
+    /* verilator lint_on UNOPTFLAT */
+    wire [7:0] sum;
 
     // Instantiate the Unit Under Test (UUT)
     ripple_carry_8bit uut (

@@ -8,8 +8,8 @@ module half_adder_procedural (
 );
 
     always @(*) begin
-        sum   <= bit_A ^ bit_B;
-        carry <= bit_A & bit_B;
+        sum   = bit_A ^ bit_B;
+        carry = bit_A & bit_B;
     end
 
 endmodule

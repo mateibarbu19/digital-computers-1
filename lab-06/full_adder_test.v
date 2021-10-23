@@ -10,7 +10,9 @@ module full_adder_test ();
     // Outputs
     wire sum;
     wire carry_out;
+    /* verilator lint_off UNUSED */
     reg ok;
+    /* verilator lint_on UNUSED */
 
     // Instantiate the Unit Under Test (UUT)
     full_adder uut (
