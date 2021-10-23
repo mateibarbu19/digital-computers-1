@@ -9,11 +9,13 @@ module test_task5();
     reg k;
 
     // Outputs.
+    /* verilator lint_off UNUSED */
     wire h_a_s;
     wire h_a_c_out;
 
     wire f_a_s;
     wire f_a_c_out;
+    /* verilator lint_on UNUSED */
 
     // Initializing Half-Adder.
     half_adder h_a (

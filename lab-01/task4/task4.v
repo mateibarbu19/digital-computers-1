@@ -1,15 +1,15 @@
 module task4(
     input a,
     input b,
-    input [0:1] sel,
+    input [1:0] sel,
     output out
 );
     
     // Dataflow programming style.
     assign out = 
-        (~sel[0] & ~sel[1] & ~(a & b)) |
-        (~sel[0] &  sel[1] &  (a & b)) |
-        (sel[0]  & ~sel[1] &  (a | b)) |
-        (sel[0]  &  sel[1] &  (a ^ b));
+        (~sel[1] & ~sel[0] & ~(a & b)) |
+        (~sel[1] &  sel[0] &  (a & b)) |
+        ( sel[1] & ~sel[0] &  (a | b)) |
+        ( sel[1] &  sel[0] &  (a ^ b));
     
 endmodule

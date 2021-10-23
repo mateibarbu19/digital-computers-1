@@ -5,10 +5,12 @@ module test_task4();
     // Inputs.
     reg a;
     reg b;
-    reg [0:1] sel;
+    reg [1:0] sel;
 
     // Outputs.
+    /* verilator lint_off UNUSED */
     wire out;
+    /* verilator lint_off UNUSED */
 
     // Initializing Unit Under Test (UUT).
     task4 UUT (
@@ -41,8 +43,8 @@ module test_task4();
         #1; // Wait 1s.
 
         // Test for 0 1 selection
-        sel[0] = 0;
-        sel[1] = 1;
+        sel[0] = 1;
+        sel[1] = 0;
         
         a = 0;
         b = 0;
@@ -58,8 +60,8 @@ module test_task4();
         #1; // Wait 1s.
 
         // Test for 1 0 selection
-        sel[0] = 1;
-        sel[1] = 0;
+        sel[0] = 0;
+        sel[1] = 1;
         
         a = 0;
         b = 0;

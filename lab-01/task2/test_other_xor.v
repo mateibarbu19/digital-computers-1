@@ -3,7 +3,9 @@ module test_other_xor();
     // Inputs.
     reg a;
     reg b;
+    /* verilator lint_off UNUSED */
     wire res;
+    /* verilator lint_on UNUSED */
 
     // Initializing UUT.
     other_xor UUT (

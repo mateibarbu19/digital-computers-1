@@ -6,12 +6,14 @@ module test_mux_4_1();
     reg c;
     reg d;
     reg [1:0] sel;
-    reg out;
     reg i;
     reg j;
     reg k;
     reg l;
+    /* verilator lint_off UNUSED */
+    reg out;
     wire res;
+    /* verilator lint_on UNUSED */
 
     // Initializing UUT.
     mux_4_1 UUT (

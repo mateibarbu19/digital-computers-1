@@ -4,7 +4,9 @@ module test_example();
     reg in;
 
     // Outputs.
+    /* verilator lint_off UNUSED */
     wire out;
+    /* verilator lint_on UNUSED */
 
     // Initialize Unit Under Test (UUT).
     example some_name (
