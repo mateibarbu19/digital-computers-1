@@ -117,7 +117,7 @@ Following a lighter project,
 I got Litex up and running flawlessly, but could not manage to run Linux
 without errors.
 
-## 6. Acknowledgments
+## 5. Acknowledgments
 
 I would like to thank again [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc)
 for all his support, this repository would not be possible without him.
