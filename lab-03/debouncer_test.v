@@ -1,7 +1,9 @@
 `timescale 1ns / 1ps
 
 module debouncer_test();
+    /* verilator lint_off UNUSED */
     wire out;
+    /* verilator lint_on UNUSED */
     reg in;
     reg clk;
     reg reset;

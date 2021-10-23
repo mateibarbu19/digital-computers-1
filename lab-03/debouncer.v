@@ -12,20 +12,20 @@ module debouncer(
 
     always @(posedge clock) begin
         if (reset) begin
-            nr_times = 0;
-            button_out = 0;
-            old_in = 0;
+            nr_times   <= 0;
+            button_out <= 0;
+            old_in     <= 0;
         end else begin
             if (button_in == old_in) begin
-                nr_times = nr_times + 1;
-                if (nr_times == 1) begin
-                    button_out = button_in;
-                    nr_times = 0;
+                if (nr_times == 0) begin
+                    button_out <= button_in;
+                end else begin
+                    nr_times <= nr_times + 1;
                 end
             end else begin
-                nr_times = 0;
+                nr_times <= 0;
             end
-            old_in = button_in;
+            old_in <= button_in;
         end
     end
 

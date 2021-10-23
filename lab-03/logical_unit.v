@@ -11,25 +11,27 @@ module logical_unit(
     input      clk
 );
 
+    /* verilator lint_off UNUSED */
     reg [1:0] old_selector;
+    /* verilator lint_on UNUSED */
 
     always @(posedge clk) begin
         if (reset) begin
-            res = 0;
-            select_counter = 0;
-            old_selector = 0;
+            res            <= 0;
+            select_counter <= 0;
+            old_selector   <= 0;
         end else begin
             if ((selector[0] != old_selector[0]) && (selector[0] == 1)) begin
-                select_counter = select_counter + 1;
+                select_counter <= select_counter + 1;
             end
             case (selector)
-                2'b00: res = operand1 ^ operand2;
-                2'b01: res = ~(operand1 & operand2);
-                2'b10: res = operand1 | operand2;
-                2'b11: res = operand1 & operand2;
-                default: res = 2'bzz;
+                2'b00:   res <= operand1 ^ operand2;
+                2'b01:   res <= ~(operand1 & operand2);
+                2'b10:   res <= operand1 | operand2;
+                2'b11:   res <= operand1 & operand2;
+                default: res <= 4'bzzzz;
             endcase
-            old_selector = selector;
+            old_selector <= selector;
         end
     end
 
