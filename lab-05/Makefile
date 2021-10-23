@@ -27,4 +27,4 @@ run: $(TARGETS)
 	done
 
 clean:
-	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid
+	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid *.json

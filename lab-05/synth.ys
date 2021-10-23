@@ -18,7 +18,7 @@ proc; opt; fsm; opt; memory; opt
 clean
 
 
-write_json fisierulmeu
+write_json connections.json
 
 # view the resulting schematic
 show -colors 1 -stretch -prefix schematic unlock
