@@ -21,12 +21,15 @@ The official guideline recommends using either the Xilinx ISE or Vivado. Since,
 both of them are memory heavy (tens of Gb) and closed-source, this repository
 was born in order to prove a change is possible.
 
-A course description can be found here:
-<https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1>
+A course description can be found
+[here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1)
 .
 
 <a name="Requirements"></a>
 ## 2. Requirements
+
+I do recommned you do read the following tutorial first:
+[Running Verilog code on Linux/Mac](https://medium.com/macoclock/running-verilog-code-on-linux-mac-3b06ddcccc55).
 
 This project uses [Icarus Verilog](http://iverilog.icarus.com/) for compiling
 and simulation. Do note that it was tested only on a Linux platform with
@@ -49,9 +52,24 @@ the mentioned packages:
 # for building and simulation + waveform viewing
 sudo apt install make iverilog gtkwave
 
-# for synthesis
+# optional, used only for synthesis
 # note: depends on xdot
 sudo apt install yosys
+```
+
+If you are interested in a IDE, I would recomand
+[VSCodium](https://vscodium.com/). Install the Verilog-HDL support for VS Code
+[extension](https://github.com/mshr-h/vscode-verilog-hdl-support).
+If you are a beginner, the [Verilator](https://www.veripool.org/verilator/) 
+linter will provide more educational warnings. I configured it with the
+following flags in the extension.
+
+```-Wall -Wno-STMTDLY --bbox-unsup```
+
+Do note that you will have to install the linter for this:
+
+```bash
+sudo apt install verilator
 ```
 
 <a name="Usage"></a>
@@ -86,26 +104,28 @@ on a Arty A7-100T development board. I used
 [Symbiflow](https://symbiflow.github.io/) as an open-source alternative to
 Vivado.
 
-A working, but old, project can be found here:
-<https://github.com/SymbiFlow/symbiflow-examples/tree/master/xc7/linux_litex_demo>.
+A working project, but old, project can be found on the examples
+[repository](https://github.com/SymbiFlow/symbiflow-examples/tree/master/xc7/linux_litex_demo).
 
 Following a more modern project,
-<https://github.com/litex-hub/linux-on-litex-rocket>,
+[Linux on LiteX with a 64-bit RocketChip CPU](https://github.com/litex-hub/linux-on-litex-rocket),
 I tried to compiled the Verilog code for a Rocket CPU implementation, but ran
 out of memory since it used more than 120GB of RAM.
 
 Following a lighter project,
-<https://github.com/litex-hub/linux-on-litex-vexriscv>,
+[Linux-on-LiteX-VexRiscv](https://github.com/litex-hub/linux-on-litex-vexriscv),
 I got Litex up and running flawlessly, but could not manage to run Linux
 without errors.
 
-6. Acknowledgments
+## 6. Acknowledgments
 
 I would like to thank again [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc)
 for all his support.
 
 Although, they did not contribute directly to making this project, I would like
 to thank the following people for their emotional support:
-    - [Marius-Răzvan Pricop](https://github.com/RazorBest)
+
     - [Andrei Ionescu](https://github.com/Andrei-Info)
+    - Cristian Dima
+    - [Marius-Răzvan Pricop](https://github.com/RazorBest)
     - [Dimitrie David](https://github.com/dimitriedavid/)
