@@ -3,13 +3,13 @@ FLAGS = -Wall -Winfloop
 
 .PHONY: build clean
 
-build: other_xor
+build: other_xor.vvp
 
-other_xor: other_xor.v test_other_xor.v
+other_xor.vvp: other_xor.v test_other_xor.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: other_xor
+run: other_xor.vvp
 	vvp $<
 
 clean:
-	rm -rf other_xor waves.vcd
+	rm -rf other_xor.vvp waves.vcd

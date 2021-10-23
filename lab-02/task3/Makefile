@@ -4,13 +4,13 @@ SIM = vvp
 
 .PHONY: build clean
 
-build: module01
+build: module01.vvp
 
-module01: module01.v test_module01.v
+module01.vvp: module01.v test_module01.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: module01
-	$(SIM) module01
+run: module01.vvp
+	$(SIM) module01.vvp
 
 clean:
-	rm -rf module01 waves*.vcd
+	rm -rf module01.vvp waves*.vcd

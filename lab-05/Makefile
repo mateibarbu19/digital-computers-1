@@ -1,20 +1,20 @@
 CC = iverilog
 FLAGS = -Wall -Winfloop
 SIM = vvp
-TARGETS = unlock counter unlock2
+TARGETS = unlock.vvp counter.vvp unlock2.vvp
 
 .PHONY: build clean
 
 build: $(TARGETS)
 
-unlock: unlock.v counter.v unlock_test.v
-	$(CC) $(FLAGS) -o $@.vvp $^
+unlock.vvp: unlock.v counter.v unlock_test.v
+	$(CC) $(FLAGS) -o $@ $^
 
-unlock2: unlock.v counter.v unlock_test_2.v
-	$(CC) $(FLAGS) -o $@.vvp $^
+unlock2.vvp: unlock.v counter.v unlock_test_2.v
+	$(CC) $(FLAGS) -o $@ $^
 
-counter: counter.v counter_test.v
-	$(CC) $(FLAGS) -o $@.vvp $^
+counter.vvp: counter.v counter_test.v
+	$(CC) $(FLAGS) -o $@ $^
 
 synthesis: synth.ys
 	yosys synth.ys
@@ -23,8 +23,8 @@ synthesis: synth.ys
 run: $(TARGETS)
 	@for entry in $(TARGETS);          \
 	do                                 \
-		$(SIM) $${entry}.vvp;      \
+		$(SIM) $${entry};          \
 	done
 
 clean:
-	rm -rf *.vvp waves*.vcd schematic*.dot *.pid *.json unlock
+	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid *.json unlock
