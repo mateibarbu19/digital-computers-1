@@ -125,7 +125,7 @@ for all his support.
 Although, they did not contribute directly to making this project, I would like
 to thank the following people for their emotional support:
 
-    - [Andrei Ionescu](https://github.com/Andrei-Info)
-    - Cristian Dima
-    - [Marius-Răzvan Pricop](https://github.com/RazorBest)
-    - [Dimitrie David](https://github.com/dimitriedavid/)
+- [Andrei Ionescu](https://github.com/Andrei-Info)
+- Cristian Dima
+- [Marius-Răzvan Pricop](https://github.com/RazorBest)
+- [Dimitrie David](https://github.com/dimitriedavid/)
