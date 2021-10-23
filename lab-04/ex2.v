@@ -1,12 +1,14 @@
+/* verilator lint_off WIDTH */
 // `timescale 1ns / 1ps
 `include "lib/defines.vh"
+
 module ex2(
     output reg [7:0] out,
     output reg [3:0] currentState,
     input            reset,
     input            clk
 );
-    
+
     localparam STATE_INITIAL = 0;
     localparam STATE_T00     = 1;
     localparam STATE_T01     = 2;
@@ -31,12 +33,12 @@ module ex2(
     // Time based action
     always @(posedge clk) begin
         if (reset) begin
-            count        = 0;
-            currentState = STATE_INITIAL;
+            count        <= 0;
+            currentState <= STATE_INITIAL;
         end
         else begin
-            count        = count + `SECOND;
-            currentState = nextState;
+            count        <= count + `SECOND;
+            currentState <= nextState;
         end
     end
     

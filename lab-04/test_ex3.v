@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTH */
 // `timescale 1ns / 1ps
 `include "lib/defines.vh"
 
@@ -26,13 +27,15 @@ module test_ex3();
     initial begin
         // Initialize Inputs
         button = 0;
-        reset  = 0;
+        reset  = 1;
         clk    = 0;
         
         // Initialize Checker Vars
         total = 0;
 
         // Wait 100 ns for global reset to finish
+        #100;
+        reset = 0;
 
         @(out)
         if (out == 0)

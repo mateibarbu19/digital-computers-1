@@ -1,3 +1,5 @@
+/* verilator lint_off WIDTH */
+
 module ex4(
     output reg       mutant,
     output reg [2:0] currentState,
@@ -8,7 +10,7 @@ module ex4(
     input            reset,
     input            clk
 );
-    
+
     function [1:0] at_least_two_nucl;
         input A;
         input G;
@@ -49,74 +51,76 @@ module ex4(
     
     always @(posedge clk) begin
         if (reset) begin
-            currentState = STATE_0;
-            mutant       = 0;
+            currentState <= STATE_0;
+            mutant       <= 0;
         end
         else begin
-            not_ok = at_least_two_nucl(
-                A_debounced,
-                G_debounced,
-                C_debounced,
-                T_debounced
-            );
-            in = A_debounced | G_debounced | C_debounced | T_debounced;
-            
             case (currentState)
                 STATE_0: begin
-                    mutant = 0;
+                    mutant <= 0;
                     if (G_debounced & ~not_ok) begin
-                        currentState = STATE_G;
+                        currentState <= STATE_G;
                     end
                 end
                 
                 STATE_G: begin
-                    mutant = 0;
+                    mutant <= 0;
                     if (G_debounced & ~not_ok) begin
-                        currentState = STATE_GG;
+                        currentState <= STATE_GG;
                     end else if (in) begin
-                        currentState = STATE_0;
+                        currentState <= STATE_0;
                     end
                 end
                     
                 STATE_GG: begin
-                    mutant = 0;
+                    mutant <= 0;
                     if (T_debounced & ~not_ok) begin
-                        currentState = STATE_GGT;
+                        currentState <= STATE_GGT;
                     end else if (G_debounced & ~not_ok) begin
-                        currentState = STATE_GG;
+                        currentState <= STATE_GG;
                     end else if (in) begin
-                        currentState = STATE_0;
+                        currentState <= STATE_0;
                     end
                 end
                             
                 STATE_GGT: begin
-                    mutant = 0;
+                    mutant <= 0;
                     if (C_debounced & ~not_ok) begin
                         // mutant    = 1;
-                        currentState = STATE_GGTC;
+                        currentState <= STATE_GGTC;
                     end else if (G_debounced & ~not_ok) begin
-                        currentState = STATE_G;
+                        currentState <= STATE_G;
                     end else if (in) begin
-                        currentState = STATE_0;
+                        currentState <= STATE_0;
                     end
                 end
                     
                 STATE_GGTC: begin
-                    mutant = 1;
+                    mutant <= 1;
                 end
                                 
                 STATE_1_PlaceHolder : begin
-                    currentState = STATE_0;
+                    currentState <= STATE_0;
                 end
 
                 STATE_2_PlaceHolder : begin
-                    currentState = STATE_0;
+                    currentState <= STATE_0;
                 end
 
                 STATE_3_PlaceHolder : begin
-                    currentState = STATE_0;
+                    currentState <= STATE_0;
                 end
             endcase
         end
+    end
+
+    always @(*) begin
+        not_ok = at_least_two_nucl(
+                    A_debounced,
+                    G_debounced,
+                    C_debounced,
+                    T_debounced
+                );
+        in = A_debounced | G_debounced | C_debounced | T_debounced;
     end
 endmodule

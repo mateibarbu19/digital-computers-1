@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTH */
 //`timescale 1ns / 1ps
 `include "lib/defines.vh"
 
@@ -20,8 +21,6 @@ module test_ex1();
         .reset(reset), 
         .clk(clk)
     );
-    
-    reg count = 0;
 
     initial begin
         // Initialize Inputs

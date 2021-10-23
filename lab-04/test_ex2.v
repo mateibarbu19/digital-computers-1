@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTH */
 // `timescale 1ns / 1ps
 `include "lib/defines.vh"
 
