@@ -120,7 +120,7 @@ without errors.
 ## 6. Acknowledgments
 
 I would like to thank again [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc)
-for all his support.
+for all his support, this repository would not be possible without him.
 
 Although, they did not contribute directly to making this project, I would like
 to thank the following people for their emotional support:
