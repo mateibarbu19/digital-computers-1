@@ -9,8 +9,10 @@ module counter_test();
     reg        decrement;
     
     // Outputs
+    /* verilator lint_off UNUSED */
     wire [15:0] ascii_out;
     wire        done;
+    /* verilator lint_on UNUSED */
     
     // Instantiate the Unit Under Test (UUT)
     counter uut (
@@ -22,8 +24,8 @@ module counter_test();
         .decrement(decrement)
     );
     
-    always@(clock)
-        #5 clock <= ~clock;
+    always
+        #5 clock = ~clock;
     
     initial begin
         $dumpfile("waves_counter.vcd");
@@ -33,10 +35,11 @@ module counter_test();
         reset     = 1;
         contor    = "20";
         decrement = 1;
+        #10;
         #1;
-        #10;
         reset = 0;
-        #10;
+        #219;
+        decrement = 0;
         $finish();
     end
 

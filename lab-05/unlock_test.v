@@ -8,13 +8,15 @@ module unlock_test();
     reg       clk;
     
     // Outputs
+    /* verilator lint_off UNUSED */
     wire out;
+    /* verilator lint_on UNUSED */
     
     // Instantiate the Unit Under Test (UUT)
     unlock unlock (ascii_in, out, reset, clk);
     
-    always@(clk)
-        #5 clk <= ~clk;
+    always
+        #5 clk = ~clk;
     
     initial begin
         $dumpfile("waves_unlock.vcd");
