@@ -41,4 +41,4 @@ run: $(TARGETS)
 	done
 
 clean:
-	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid *.json ordinator_8bit
+	rm -rf $(TARGETS) waves*.vcd schematic*.dot *.pid *.json

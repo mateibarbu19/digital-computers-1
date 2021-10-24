@@ -1,12 +1,12 @@
 # read design
 read_verilog counter.v
-read_verilog -noopt unlock.v
+read_verilog unlock.v
 
 # elaborate design hierarchy
 hierarchy -check
 
 # the high-level stuff
-proc; opt; fsm; opt; memory; opt
+proc; tribuf; opt; fsm; opt; memory; opt
 
 # mapping to internal cell library
 # this maps the design circuit to one bit gates, do not use this!!!

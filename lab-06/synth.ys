@@ -1,15 +1,15 @@
 # read design
-read_verilog half_adder_structural.v
-read_verilog full_adder.v
-read_verilog ripple_carry_8bit.v
-read_verilog subtractor_8bit.v
-read_verilog -noopt ordinator_8bit.v
+read_verilog -lib half_adder_structural.v
+read_verilog -lib full_adder.v
+read_verilog -lib ripple_carry_8bit.v
+read_verilog -lib subtractor_8bit.v
+read_verilog ordinator_8bit.v
 
 # elaborate design hierarchy
 hierarchy -check
 
 # the high-level stuff
-proc; opt; fsm; opt; memory; opt
+proc; tribuf; opt; fsm; opt; memory; opt
 
 # mapping to internal cell library
 # this maps the design circuit to one bit gates, do not use this!!!

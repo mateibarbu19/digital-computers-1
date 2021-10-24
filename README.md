@@ -1,6 +1,6 @@
 # Digital Computers 1
 
-![alt text](example.svg "Laboratory 5, synthesized and rendered")
+![alt text](example.svg "Laboratory 5, counter module, synthesized and rendered")
 
 ## Table of Contents
 
@@ -21,8 +21,8 @@ The official guideline recommends using either the Xilinx ISE or Vivado. Since,
 both of them are memory heavy (tens of Gb) and closed-source, this repository
 was born in order to prove a change is possible.
 
-A course description can be found
-[here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1)
+For more information or a syllabus check out the course description
+[page here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1)
 .
 
 <a name="Requirements"></a>
