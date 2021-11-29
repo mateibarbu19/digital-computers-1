@@ -5,6 +5,7 @@ module module01(
 );
 
     always @(posedge clk) begin
+        $display("Time:%t CLK:%d SLOW_CLK:%d", $time, clk, slow_clk);
         if (reset) begin
             slow_clk <= 0;
         end else begin

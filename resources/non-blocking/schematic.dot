@@ -1,0 +1,27 @@
+digraph "counter" {
+label="counter";
+rankdir="LR";
+remincross=true;
+n3 [ shape=diamond, label="buffer", color="black", fontcolor="black" ];
+n4 [ shape=octagon, label="clk", color="black", fontcolor="black" ];
+n5 [ shape=octagon, label="out", color="black", fontcolor="black" ];
+n6 [ shape=octagon, label="reset", color="black", fontcolor="black" ];
+{ rank="source"; n4; n6;}
+{ rank="sink"; n5;}
+v0 [ label="8'00000001" ];
+c10 [ shape=record, label="{{<p7> A|<p8> B}|$2\n$add|{<p9> Y}}" ];
+c14 [ shape=record, label="{{<p11> CLK|<p12> D}|$6\n$dff|{<p13> Q}}" ];
+v1 [ label="8'00000000" ];
+c16 [ shape=record, label="{{<p7> A|<p8> B|<p15> S}|$4\n$mux|{<p9> Y}}" ];
+x2 [shape=box, style=rounded, label="BUF"];
+c16:p9:e -> c14:p12:w [colorscheme="dark28", color="5", fontcolor="5", style="setlinewidth(3)", label=""];
+c10:p9:e -> c16:p7:w [colorscheme="dark28", color="1", fontcolor="1", style="setlinewidth(3)", label=""];
+c14:p13:e -> n3:w [colorscheme="dark28", color="1", fontcolor="1", style="setlinewidth(3)", label=""];
+n3:e -> c10:p7:w [colorscheme="dark28", color="1", fontcolor="1", style="setlinewidth(3)", label=""];
+n3:e -> x2:w:w [colorscheme="dark28", color="1", fontcolor="1", style="setlinewidth(3)", label=""];
+n4:e -> c14:p11:w [colorscheme="dark28", color="3", fontcolor="3", label=""];
+x2:e:e -> n5:w [colorscheme="dark28", color="4", fontcolor="4", style="setlinewidth(3)", label=""];
+n6:e -> c16:p15:w [colorscheme="dark28", color="4", fontcolor="4", label=""];
+v0:e -> c10:p8:w [colorscheme="dark28", color="3", fontcolor="3", style="setlinewidth(3)", label=""];
+v1:e -> c16:p8:w [colorscheme="dark28", color="2", fontcolor="2", style="setlinewidth(3)", label=""];
+}

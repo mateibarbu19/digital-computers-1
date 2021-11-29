@@ -25,6 +25,10 @@ For more information or a syllabus check out the course description
 [page here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1)
 .
 
+I encourage you to watch the online lectures
+[here](https://www.youtube.com/watch?v=Tr0AdbBRbuk&list=PLwhXkdjzBNZ90g0O0HGMpPg20STiba9Gg)
+.
+
 <a name="Requirements"></a>
 ## 2. Requirements
 
@@ -72,6 +76,11 @@ Do note that you will have to install the linter for this:
 sudo apt install verilator
 ```
 
+Note: If you took my advice and installed VSCodium, you'll need to enable the VSCode
+Marketplace using these
+[instructions](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace)
+.
+
 <a name="Usage"></a>
 ## Usage
 
@@ -79,11 +88,13 @@ Open the directory corresponding to the laboratory you want to test. Run
 `make build` for compiling, `make run` for simulation, and `gtkwave waves.vcd`
 for viewing the resulting waveforms.
 
-Some laboratories, like `lab-05`, include a synthesis script. If you run
-`make synthesis` in the respective folder, both a `.dot` and `.json` file will
-be generated both containing a logic gate schematic circuit based on the
-Verilog code. The `.dot` is opened and rendered by default when running the
-script.
+Some laboratories, like `lab-05`, include a synthesis script. If
+you run `make synthesis` in the respective folder, both a `.dot` and `.json`
+file will be generated both containing a logic gate schematic circuit based on
+the Verilog code. The `.dot` is opened and rendered by default when running the
+script. I shall warn you that the `.json` schematic description contains
+multiple module implementations, so when using `netlistsvg` just delete from
+the `.json` file the unnecessary ones.
 
 <a name="Other_projects"></a>
 ## 4. Other projects
@@ -117,6 +128,7 @@ Following a lighter project,
 I got Litex up and running flawlessly, but could not manage to run Linux
 without errors.
 
+<a name="Acknowledgments"></a>
 ## 5. Acknowledgments
 
 I would like to thank again [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc)
@@ -126,6 +138,6 @@ Although, they did not contribute directly to making this project, I would like
 to thank the following people for their emotional support:
 
 - [Andrei Ionescu](https://github.com/Andrei-Info)
-- Cristian Dima
+- [Cristian Dima](https://github.com/Cartofie)
 - [Marius-Răzvan Pricop](https://github.com/RazorBest)
 - [Dimitrie David](https://github.com/dimitriedavid/)
