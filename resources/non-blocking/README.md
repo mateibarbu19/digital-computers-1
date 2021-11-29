@@ -45,7 +45,7 @@ As the author writes:
 > RHS expression of a nonblocking statement at the beginning of a time step and
 > schedules the LHS update to take place at the end of the time step.
 
-Here are the guidelines in the article:
+And he advises us to use these guidelines:
 
 1. When modeling sequential logic, use nonblocking assignments.
 2. When modeling latches, use nonblocking assignments.
