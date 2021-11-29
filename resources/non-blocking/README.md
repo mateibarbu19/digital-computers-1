@@ -35,6 +35,16 @@ results. (I would like to note that
 [MIT course 6.111](http://web.mit.edu/6.111/www/f2017/handouts/L04.pdf#page=30)
 take very seriously the guidelines in the former article.)
 
+As the author writes:
+
+> A **blocking** assignment gets its name because a blocking assignment must
+> evaluate the RHS arguments and complete the assignment without interruption
+> from any other Verilog statement.
+
+> A **nonblocking** assignment gets its name because the assignment evaluates the
+> RHS expression of a nonblocking statement at the beginning of a time step and
+> schedules the LHS update to take place at the end of the time step.
+
 Here are the guidelines in the article:
 
 1. When modeling sequential logic, use nonblocking assignments.
@@ -109,8 +119,8 @@ buff_is_one_b  <= (buff_out_b == 8'd1);
 
 But if you look in the anterior waveform, you see that `is_one_nb` and
 `is_one_b` differ, the former "lagging" with one clock period. That is because
-right hand statements, *or expressions in if statements*, are evaluated before
-updates of left hand statements in nonblocking assignments.
+right hand side terms, *or expressions in if statements*, are evaluated before
+updates of the left hand side of nonblocking assignments.
 
 This is why a code that was previously written using only `=`, which is a bad
 practice, cannot be easily corrected to respect Cumming guidelines.
