@@ -22,11 +22,11 @@ module test_counter();
         $dumpfile("waves.vcd");
         $dumpvars(0, test_counter);
         reset = 1;
-        clk = 0;
-        #2;
+        clk = 1;
+        #1;
         reset = 0;
 
-        #34;
+        #29;
 
         $finish();
     end

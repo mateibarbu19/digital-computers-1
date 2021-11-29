@@ -1,5 +1,6 @@
 # read design
 read_verilog counter.v
+write_verilog dummy.v
 
 # elaborate design hierarchy
 hierarchy -check

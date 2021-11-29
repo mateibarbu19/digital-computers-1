@@ -17,4 +17,4 @@ run: counter
 	$(SIM) $<.vvp
 
 clean:
-	rm -rf counter.vvp waves.vcd schematic*.dot *.pid *.json
+	rm -rf counter.vvp waves.vcd schematic*.dot *.pid *.json dummy.v
