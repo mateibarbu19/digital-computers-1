@@ -1,4 +1,4 @@
-# Non-blocking vs. blocking assignments
+# Nonblocking vs. blocking assignments
 
 In Verilog we think in maybe three different ways:
 
@@ -22,11 +22,11 @@ So, combinational logic is generally synthesized using flip-flops or latches and
 the internal clock network.
 
 It is generally now that one who seeks to understand what Verilog code means
-learns about the difference between non-blocking and blocking assignments.
+learns about the difference between nonblocking and blocking assignments.
 
 ---
 
-As I learned from this link [2], non-blocking assignments are the first step
+As I learned from this link [2], nonblocking assignments are the first step
 Verilog developers took to solve *non-determinism*.
 
 Why do you need to care? Because an excellent article published by Cummings [3]
@@ -37,15 +37,15 @@ take very seriously the guidelines in the former article.)
 
 Here are the guidelines in the article:
 
-1. When modeling sequential logic, use non-blocking assignments.
-2. When modeling latches, use non-blocking assignments.
+1. When modeling sequential logic, use nonblocking assignments.
+2. When modeling latches, use nonblocking assignments.
 3. When modeling combinational logic with an always block, use blocking
     assignments.
 4. When modeling both sequential and “combinational” logic within the same
-    always block, use non-blocking assignments.
-5. Do not mix blocking and non-blocking assignments in the same always block.
+    always block, use nonblocking assignments.
+5. Do not mix blocking and nonblocking assignments in the same always block.
 6. Do not make assignments to the same variable from more than one always block.
-7. Use $strobe to display values that have been assigned using non-blocking
+7. Use $strobe to display values that have been assigned using nonblocking
     assignments.
 8. Do not make assignments using #0 delays.
 
@@ -63,7 +63,7 @@ the described a hardware as in the following picture:
 
 In [counter.v](counter.v) I have added two outputs:
 
-- `out_nb`: the output for the non-blocking incrementation
+- `out_nb`: the output for the nonblocking incrementation
 - `out_b`: the output for the blocking incrementation
 
 When running the code and reading the waveform we find no difference between
@@ -87,10 +87,10 @@ On the left column we read in what region the code was executed. For showing a
 output in the active event queue I used the `$display` directive. For showing a
 output in the active event queue I used the `$strobe` directive. (See [4].) I
 would like to remind the reader that the postponed queue is processed after
-non-blocking assignment updates.
+nonblocking assignment updates.
 
 On the right most column we read the time. In between we have the values of the
-output that was either assigned with a non-blocking assignment or with a
+output that was either assigned with a nonblocking assignment or with a
 blocking one.
 
 So we see that the waveform displays only the value after the simulator passed
@@ -110,7 +110,7 @@ buff_is_one_b  <= (buff_out_b == 8'd1);
 But if you look in the anterior waveform, you see that `is_one_nb` and
 `is_one_b` differ, the former "lagging" with one clock period. That is because
 right hand statements, *or expressions in if statements*, are evaluated before
-updates of left hand statements in non-blocking assignments.
+updates of left hand statements in nonblocking assignments.
 
 This is why a code that was previously written using only `=`, which is a bad
 practice, cannot be easily corrected to respect Cumming guidelines.
