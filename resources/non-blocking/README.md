@@ -130,6 +130,13 @@ Sometimes Yosys replaces `=` in a `always @(posedge clk)` block with `<=`.
 Anyone who understood the difference can see that this was actually a article
 about thinking in Verilog, rather that an unimportant programming quirk.
 
+### Bibliography
+
+- [1] Event Drive Simulation: Confusion
+- [2] Verilog's Major Flaw
+- [3] Clifford E. Cummings, Nonblocking Assignments in Verilog Synthesis, Coding
+    Styles That Kill!
+- [4] $display vs $strobe vs $monitor in verilog?
 
 [1]: https://electronics.stackexchange.com/questions/202489/event-driven-simulation-confusion
 
