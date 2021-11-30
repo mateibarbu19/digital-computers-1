@@ -1,16 +1,20 @@
 # Digital Computers 1
 
-![alt text](example.svg "Laboratory 5, counter module, synthesized and rendered")
+![sch](lab-05/counter.svg "Laboratory 5, counter module, synthesized and rendered")
 
-## Table of Contents
+Table of Contents
+=================
 
-1. [Repository description](#Repository_description)
-2. [Requirements](#Requirements)
-3. [Usage](#Usage)
-4. [Other projects](#Other_projects)
-5. [Acknowledgments](#Acknowledgments)
+* [Digital Computers 1](#digital-computers-1)
+   * [1. Repository description](#1-repository-description)
+   * [2. Requirements](#2-requirements)
+      * [2.1. Simulation and Synthesis](#21-simulation-and-synthesis)
+      * [2.2. Integrated Development Environment](#22-integrated-development-environment)
+   * [3. Usage](#3-usage)
+   * [4. Other projects](#4-other-projects)
+      * [4.1. Linux on Litex](#41-linux-on-litex)
+   * [5. Acknowledgments](#5-acknowledgments)
 
-<a name="Repository_description"></a>
 ## 1. Repository description
 
 This project aims to provide a fully open-source alternative to the
@@ -21,19 +25,32 @@ The official guideline recommends using either the Xilinx ISE or Vivado. Since,
 both of them are memory heavy (tens of Gb) and closed-source, this repository
 was born in order to prove a change is possible.
 
+Here is the list of the improvements I brought:
+
+- `Makefile` with Icarus Simulator support
+- Verilator for linting with all warnings solved
+- Correct use of both nonblocking and blocking assignments
+    - Wrote an systemized explication about the
+    [differences](resources/non-blocking) between the two
+- Coding style (as best as I could)
+- Improved checkers (e.g. lab-06)
+- Removed unsynthesizable `initial` blocks
+- Provided information about open-source tools
+- Synthesis script (only for some laboratories)
+
 For more information or a syllabus check out the course description
-[page here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1)
-.
+[page here](https://cs.pub.ro/index.php/education/courses/59-under/an2under/116-digital-computers-1).
 
 I encourage you to watch the online lectures
-[here](https://www.youtube.com/watch?v=Tr0AdbBRbuk&list=PLwhXkdjzBNZ90g0O0HGMpPg20STiba9Gg)
-.
+[here](https://www.youtube.com/watch?v=Tr0AdbBRbuk&list=PLwhXkdjzBNZ90g0O0HGMpPg20STiba9Gg).
+This course was taught by Dan-Ștefan Tudose.
 
-<a name="Requirements"></a>
 ## 2. Requirements
 
-I do recommned you do read the following tutorial first:
+I do recommend you do read the following tutorial first:
 [Running Verilog code on Linux/Mac](https://medium.com/macoclock/running-verilog-code-on-linux-mac-3b06ddcccc55).
+
+### 2.1. Simulation and Synthesis
 
 This project uses [Icarus Verilog](http://iverilog.icarus.com/) for compiling
 and simulation. Do note that it was tested only on a Linux platform with
@@ -61,28 +78,34 @@ sudo apt install make iverilog gtkwave
 sudo apt install yosys
 ```
 
-If you are interested in a IDE, I would recomand
+### 2.2. Integrated Development Environment
+
+If you are interested in a IDE, I would recommend
 [VSCodium](https://vscodium.com/). Install the Verilog-HDL support for VS Code
-[extension](https://github.com/mshr-h/vscode-verilog-hdl-support).
+[extension](https://github.com/mshr-h/vscode-verilog-hdl-support) (see future
+note).
 If you are a beginner, the [Verilator](https://www.veripool.org/verilator/) 
-linter will provide more educational warnings. I configured it with the
-following flags in the extension.
-
-```-Wall -Wno-STMTDLY --bbox-unsup```
-
-Do note that you will have to install the linter for this:
+linter will provide more educational warnings.
 
 ```bash
 sudo apt install verilator
 ```
 
+Go to the extensions settings in VSCodium and configure it like this:
+
+```
+# Verilog › Linting: Linter
+verilator
+
+# Verilog › Linting › Verilator: Arguments
+-Wall -Wno-STMTDLY --bbox-unsup
+```
+
 Note: If you took my advice and installed VSCodium, you'll need to enable the VSCode
 Marketplace using these
-[instructions](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace)
-.
+[instructions](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace).
 
-<a name="Usage"></a>
-## Usage
+## 3. Usage
 
 Open the directory corresponding to the laboratory you want to test. Run
 `make build` for compiling, `make run` for simulation, and `gtkwave waves.vcd`
@@ -96,7 +119,6 @@ script. I shall warn you that the `.json` schematic description contains
 multiple module implementations, so when using `netlistsvg` just delete from
 the `.json` file the unnecessary ones.
 
-<a name="Other_projects"></a>
 ## 4. Other projects
 
 A follow-up to this repository is
@@ -108,6 +130,11 @@ Laboratories (PUB).
 During courses we were taught Malvino and Brown's SAP-1 computer architecture.
 A very comprehensive repository implementing this architecture can be found
 here: <https://github.com/EnigmaCurry/SAP>.
+
+If you are interested in making a Printed Circuit Board out of Verilog code,
+check out: <http://pepijndevos.nl/2019/07/18/vhdl-to-pcb.html>.
+
+### 4.1. Linux on Litex
 
 During the 2021 summer I worked along with my teaching assistant, 
 [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc), on running Linux on Litex
@@ -128,7 +155,6 @@ Following a lighter project,
 I got Litex up and running flawlessly, but could not manage to run Linux
 without errors.
 
-<a name="Acknowledgments"></a>
 ## 5. Acknowledgments
 
 I would like to thank again [Ștefan-Dan Ciocîrlan](https://github.com/sdcioc)
