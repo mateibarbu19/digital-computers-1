@@ -27,7 +27,8 @@ was born in order to prove a change is possible.
 
 Here is the list of the improvements I brought:
 
-- `Makefile` with Icarus Simulator support
+- `Makefile` with Icarus Simulator support (though working, might still be
+   improved)
 - Verilator for linting with all warnings solved
 - Correct use of both nonblocking and blocking assignments
     - Wrote an systemized explication about the

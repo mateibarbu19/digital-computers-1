@@ -8,8 +8,10 @@ build: other_xor.vvp
 other_xor.vvp: other_xor.v test_other_xor.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: other_xor.vvp
+waves.vcd: other_xor.vvp
 	vvp $<
+
+run: waves.vcd
 
 clean:
 	rm -rf other_xor.vvp waves.vcd

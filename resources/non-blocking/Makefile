@@ -13,8 +13,10 @@ synthesis: synth.ys
 	yosys synth.ys
 	rm -f *.pid
 
-run: counter
+waves.vcd: counter
 	$(SIM) $<.vvp
+
+run: waves.vcd
 
 clean:
 	rm -rf counter.vvp waves.vcd schematic*.dot *.pid *.json dummy.v

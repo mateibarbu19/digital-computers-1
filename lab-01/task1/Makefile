@@ -9,8 +9,10 @@ build: example.vvp
 example.vvp: example.v test_example.v
 	$(CC) $(FLAGS) -o $@ $^
 
-run: example.vvp
+waves.vcd: example.vvp
 	$(SIM) $<
+
+run: waves.vcd
 
 clean:
 	rm -rf example.vvp waves.vcd
