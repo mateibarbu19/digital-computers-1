@@ -1,6 +1,6 @@
 # Digital Computers 1
 
-![sch](lab-05/counter.svg "Laboratory 5, counter module, synthesized and rendered")
+![sch](resources/non-blocking/res/counter.svg "Counter module, synthesized and rendered")
 
 Table of Contents
 =================

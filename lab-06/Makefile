@@ -30,9 +30,11 @@ ordinator_8bit.vvp: ordinator_8bit_test.v ordinator_8bit.v ripple_carry_8bit.v \
 				subtractor_8bit.v full_adder.v half_adder_structural.v
 	$(CC) $(FLAGS) -o $@ $^
 
-synthesis: synth.ys
+connections.json: synth.ys ordinator_8bit.v
 	yosys synth.ys
 	rm -f *.pid
+
+synthesis: connections.json
 
 run: $(TARGETS)
 	@for entry in $(TARGETS);          \

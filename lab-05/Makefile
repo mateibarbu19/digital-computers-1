@@ -16,9 +16,11 @@ unlock2.vvp: unlock.v counter.v unlock_test_2.v
 counter.vvp: counter.v counter_test.v
 	$(CC) $(FLAGS) -o $@ $^
 
-synthesis: synth.ys
+connections.json: synth.ys unlock.v
 	yosys synth.ys
 	rm -f *.pid
+
+synthsis: connections.json
 
 run: $(TARGETS)
 	@for entry in $(TARGETS);          \

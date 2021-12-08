@@ -1,9 +1,9 @@
 # read design
-read_verilog counter.v
+read_verilog -lib counter.v
 read_verilog unlock.v
 
 # elaborate design hierarchy
-hierarchy -check
+hierarchy -check -top unlock
 
 # the high-level stuff
 proc; tribuf; opt; fsm; opt; memory; opt

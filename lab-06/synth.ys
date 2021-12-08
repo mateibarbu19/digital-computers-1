@@ -6,7 +6,7 @@ read_verilog -lib subtractor_8bit.v
 read_verilog ordinator_8bit.v
 
 # elaborate design hierarchy
-hierarchy -check
+hierarchy -check -top ordinator_8bit
 
 # the high-level stuff
 proc; tribuf; opt; fsm; opt; memory; opt

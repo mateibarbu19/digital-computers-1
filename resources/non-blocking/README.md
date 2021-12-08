@@ -67,9 +67,10 @@ references, you might have understood the theoretical difference between them.
 ## The Practical difference
 
 In this folder I have setup a test module `counter` in which I have implemented
-the described a hardware as in the following picture:
+the described a hardware as in the following picture (see
+[ideal_counter.v](ideal_counter.v)):
 
-![sch](counter.svg "Counter schematic")
+![sch](res/counter.svg "Counter schematic")
 
 In [counter.v](counter.v) I have added two outputs:
 
@@ -79,7 +80,7 @@ In [counter.v](counter.v) I have added two outputs:
 When running the code and reading the waveform we find no difference between
 `out_nb` and `out_b`. Let's look at the debug output and compare them.
 
-![wave](waveform.png "Counter signal output waves")
+![wave](res/waveform.png "Counter signal output waves")
 
 ```
 Active:   NB-OUT:   x, B-OUT:   x                    0
@@ -125,13 +126,15 @@ updates of the left hand side of nonblocking assignments.
 This is why a code that was previously written using only `=`, which is a bad
 practice, cannot be easily corrected to respect Cumming guidelines.
 
-![sch](result.svg "Counter schematic result")
+![sch](res/result.svg "Counter schematic result")
 
 As we see in this schematic the circuits for `out_nb` and `out_b` are
 symmetrical. But for `in_one_nb` has one extra D flip flop on it's path, than
 `is_one_b`.
 
 Sometimes Yosys replaces `=` in a `always @(posedge clk)` block with `<=`.
+
+(The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).)
 
 ---
 

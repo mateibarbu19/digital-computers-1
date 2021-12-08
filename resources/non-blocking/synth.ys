@@ -3,7 +3,7 @@ read_verilog counter.v
 write_verilog dummy.v
 
 # elaborate design hierarchy
-hierarchy -check
+hierarchy -check -top counter
 
 # the high-level stuff
 proc; tribuf; opt; fsm; opt; memory; opt
