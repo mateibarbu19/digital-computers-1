@@ -49,9 +49,9 @@ learns about the difference between nonblocking and blocking assignments.
 As I learned from this link [2], nonblocking assignments are the first step
 Verilog developers took to solve *non-determinism*.
 
-Why do you need to care? Because an excellent article published by Cummings [3]
-shows us that running the same code in different conditions yields different
-results. (I would like to note that
+Why do you need to care? Because an excellent article published by Cummings (see
+[3]) shows us that running the same code in different conditions yields
+different results. (I would like to note that
 [MIT course 6.111](http://web.mit.edu/6.111/www/f2017/handouts/L04.pdf#page=30)
 take very seriously the guidelines in the former article.)
 
@@ -173,7 +173,7 @@ written using only `=`, which is a bad practice, cannot be easily corrected to
 respect these guidelines.
 
 If you want to remeber the difference between the two, always refer to either
-the IEEE Verilog Standard or the selected quotes from Cummings (see [3])
+the IEEE Verilog Standard or the selected quotes from Cummings's (see [3])
 article.
 
 
