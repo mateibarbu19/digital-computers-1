@@ -1,5 +1,25 @@
 # Nonblocking vs. blocking assignments
 
+Table of Contents
+=================
+
+* [Nonblocking vs. blocking assignments](#nonblocking-vs-blocking-assignments)
+   * [Introduction](#introduction)
+   * [Thinking in Verilog](#thinking-in-verilog)
+   * [Assignments in Verilog](#assignments-in-verilog)
+   * [The Practical difference](#the-practical-difference)
+   * [Conclusions](#conclusions)
+   * [Bibliography](#bibliography)
+
+## Introduction
+
+You may have heard that the difference between `=` and `<=` in Verilog is that
+`=` assignments are executed sequentially and `<=` in parallel. However, this is
+only from a "users perspective" (see [3]). So in this post we will be diving
+deeper in order to understand the difference between the two.
+
+## Thinking in Verilog
+
 In Verilog we think in maybe three different ways:
 
 - Simulation thinking
@@ -21,10 +41,10 @@ A FPGA is more complicated on the other hand, it is build out of Lookup Tables.
 So, combinational logic is generally synthesized using flip-flops or latches and
 the internal clock network.
 
+## Assignments in Verilog
+
 It is generally now that one who seeks to understand what Verilog code means
 learns about the difference between nonblocking and blocking assignments.
-
----
 
 As I learned from this link [2], nonblocking assignments are the first step
 Verilog developers took to solve *non-determinism*.
@@ -143,7 +163,7 @@ Sometimes Yosys replaces `=` in a `always @(posedge clk)` block with `<=`.
 Anyone who understood the difference can see that this was actually a article
 about thinking in Verilog, rather that an unimportant programming quirk.
 
-### Bibliography
+## Bibliography
 
 - [1] Event Drive Simulation: Confusion
 - [2] Verilog's Major Flaw

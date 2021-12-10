@@ -1,6 +1,6 @@
 # Digital Computers 1
 
-![sch](resources/non-blocking/res/counter.svg "Counter module, synthesized and rendered")
+![sch](resources/non-blocking/res/counter.svg#center "Counter module, synthesized and rendered")
 
 Table of Contents
 =================
@@ -19,7 +19,7 @@ Table of Contents
 
 This project aims to provide a fully open-source alternative to the
 [Open CourseWare](https://ocw.cs.pub.ro/courses/cn1) Digital Computers 1
-Laboratories taught at [Politehnica University of Bucharest](upb.ro).
+Laboratories taught at [Politehnica University of Bucharest](https://upb.ro).
 
 The official guideline recommends using either the Xilinx ISE or Vivado. Since,
 both of them are memory heavy (tens of Gb) and closed-source, this repository
