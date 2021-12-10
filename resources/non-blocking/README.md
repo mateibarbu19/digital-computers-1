@@ -136,6 +136,9 @@ value corresponding to the respective output.)
 ```verilog
 buff_is_one_nb <= (buff_out_nb == 8'd1);
 buff_is_one_b  <= (buff_out_b == 8'd1);
+
+buff_is_one_nb <= (buff_out_nb == 8'd1);
+buff_is_one_b  <= (buff_out_b == 8'd1);
 ```
 
 But if you look in the anterior waveform, you see that `is_one_nb` and
@@ -143,25 +146,36 @@ But if you look in the anterior waveform, you see that `is_one_nb` and
 right hand side terms, *or expressions in if statements*, are evaluated before
 updates of the left hand side of nonblocking assignments.
 
-This is why a code that was previously written using only `=`, which is a bad
-practice, cannot be easily corrected to respect Cumming guidelines.
-
 ![sch](res/result.svg "Counter schematic result")
 
 As we see in this schematic the circuits for `out_nb` and `out_b` are
-symmetrical. But for `in_one_nb` has one extra D flip flop on it's path, than
-`is_one_b`.
+symmetrical. But `in_one_nb` has one extra D flip flop on it's path, than
+`is_one_b`. This is because the value of `out_nb` is only updated at the end of
+the time step. So when comparing `buff_out_nb` with `8'd1` we are using the the
+old value, aka. the not yet incremented one. Only at the next clock cycle can we
+compare the updated value with `8'd1`. On the other hand, `buff_out_b` is
+updated immediately and can be compared with `8'd1` in the same clock cycle.
 
 Sometimes Yosys replaces `=` in a `always @(posedge clk)` block with `<=`.
 
 (The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).)
 
----
-
-## Conclusions
+## Conclusion
 
 Anyone who understood the difference can see that this was actually a article
 about thinking in Verilog, rather that an unimportant programming quirk.
+
+If you want to keep writing Verilog simpler, just follow the guidelines
+formerly mentioned. Do not expect a register which is assigned with `<=` to be
+updated immediately. Do not expect to be able to use the RHS value of that
+assignment in the same clock cycle. This is why a code that was previously
+written using only `=`, which is a bad practice, cannot be easily corrected to
+respect these guidelines.
+
+If you want to remeber the difference between the two, always refer to either
+the IEEE Verilog Standard or the selected quotes from Cummings (see [3])
+article.
+
 
 ## Bibliography
 
