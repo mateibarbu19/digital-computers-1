@@ -19,7 +19,8 @@ Table of Contents
 
 This project aims to provide a fully open-source alternative to the
 [Open CourseWare](https://ocw.cs.pub.ro/courses/cn1) Digital Computers 1
-Laboratories taught at [Politehnica University of Bucharest](https://upb.ro).
+Laboratories taught at [Politehnica University of Bucharest](https://upb.ro),
+during the second semester of the university year 2020-2021.
 
 The official guideline recommends using either the Xilinx ISE or Vivado. Since,
 both of them are memory heavy (tens of Gb) and closed-source, this repository
@@ -105,6 +106,19 @@ verilator
 Note: If you took my advice and installed VSCodium, you'll need to enable the VSCode
 Marketplace using these
 [instructions](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace).
+
+If you are interested in a open-source auto-formatter them I found this Sublime
+[System Verilog](https://sv-doc.readthedocs.io/) plugin. Just place your cursor
+on the `endmodule` keyword, press `Ctrl` + `Shift` + `P` and type `Alignment`. I
+will note that before this I usually run this command:
+
+```bash
+for i in *.v; do
+    expand -t 4 "$i" | tr -s " " > tmp
+    cp tmp $i
+done
+rm tmp
+```
 
 ## 3. Usage
 
