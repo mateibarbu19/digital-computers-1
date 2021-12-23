@@ -8,8 +8,11 @@ Table of Contents
    * [Thinking in Verilog](#thinking-in-verilog)
    * [Assignments in Verilog](#assignments-in-verilog)
    * [The Practical difference](#the-practical-difference)
-   * [Conclusions](#conclusions)
+      * [Explanation](#explanation)
+   * [Conclusion](#conclusion)
    * [Bibliography](#bibliography)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## Introduction
 
@@ -148,17 +151,52 @@ updates of the left hand side of nonblocking assignments.
 
 ![sch](res/result.svg "Counter schematic result")
 
-As we see in this schematic the circuits for `out_nb` and `out_b` are
-symmetrical. But `in_one_nb` has one extra D flip flop on it's path, than
-`is_one_b`. This is because the value of `out_nb` is only updated at the end of
-the time step. So when comparing `buff_out_nb` with `8'd1` we are using the the
-old value, aka. the not yet incremented one. Only at the next clock cycle can we
-compare the updated value with `8'd1`. On the other hand, `buff_out_b` is
-updated immediately and can be compared with `8'd1` in the same clock cycle.
+### Explanation
 
-Sometimes Yosys replaces `=` in a `always @(posedge clk)` block with `<=`.
+As we see in this schematic the circuits for `out_nb` and `out_b` are the same.
 
-(The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).)
+Let's make one aspect clear. At each tick, when `buff_out_*` is incremented, we
+will see that change at the next posedge. So if we were to put an oscilloscope
+to monitor `out_*`, we cannot detect whether the internal incrementation has
+taken place. We are unaware of *any* internal changes just by looking at
+`out_*`. If you wish the internal incremented value would be displayed
+immediately on your scope, you would need to increase the clocks frequency. And
+if you cannot, you might say that on the scope you are not looking at a fresh
+value all the time, you might say you are looking at a outdated or old value,
+**but** keep in mind that there are no old values! For the values associated
+with `out_*` is whatever comes out their corresponding D flip flops.
+
+```
+buff_out_nb <= buff_out_nb + 1
+```
+
+So a wrong way to read this would be: "`buff_out_nb` gets its value
+incremented at this moment in time". A correct way to read it would be:
+"`buff_out_nb` will be updated, at the end of the time step, with a value, that
+happens to be made up by adding the value of `buff_out_nb` during this time step
+and `8'd1`". 
+
+The comparison corresponding to `is_one_nb` uses as input the value of `out_nb`,
+i.e. the value that is the output of a D flip flop. Now, if you look at `out_b`
+in the schematic and trace it to the adder, you will see that `out_b + 1` is
+feed as an input for the comparison corresponding to `is_one_b`.
+
+On the one hand, during the "procedures" of a step, `is_one_nb` uses the value
+of `out_nb` (and not the scheduled to be updated value_ as it's input. On the
+other hand, `is_one_b` uses an intermediate calculation, that is `out_b + 1` as
+input.
+
+**But here comes the comes the catch!** If in the simulation the value of
+`out_b` can be immediately updated, in the schematic that is impossible. In 
+order to mimic the simulation, the schematic compensates the lack of immediate
+updates. How? Instead of using the value `out_b` for comparison for `is_one_b`,
+it uses a "intermediate value of `out_b`", a soon to be attributed one.
+
+This explains why only at the next clock cycle can we compare the updated value
+of `out_b` with `8'd1`. Contrary to this, either the simulator or the synthesis
+tool will find a way make it seem that `out_b` is updated immediately.
+
+The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).
 
 ## Conclusion
 
@@ -169,12 +207,18 @@ If you want to keep writing Verilog simpler, just follow the guidelines
 formerly mentioned. Do not expect a register which is assigned with `<=` to be
 updated immediately. Do not expect to be able to use the RHS value of that
 assignment in the same clock cycle. This is why a code that was previously
-written using only `=`, which is a bad practice, cannot be easily corrected to
+written using only `=` (which is a bad practice_ cannot be easily corrected to
 respect these guidelines.
 
-If you want to remeber the difference between the two, always refer to either
+If you want to remember the difference between the two, always refer to either
 the IEEE Verilog Standard or the selected quotes from Cummings's (see [3])
 article.
+
+<details closed>
+<summary>Yosys note</summary>
+Sometimes Yosys replaces blocking assignments in a sequential logic block with
+nonblocking ones. So the guidelines will prevent inconsistencies.
+</details>
 
 
 ## Bibliography
