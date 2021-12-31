@@ -1,3 +1,4 @@
+/* verilator lint_off BLKSEQ */
 module counter (
     input        clk,
     input        reset,
@@ -15,7 +16,7 @@ module counter (
     always @(posedge clk) begin
         if (reset) begin
             buff_out_nb    <= 0;
-            buff_out_b     <= 0;
+            buff_out_b     = 0;
             buff_is_one_nb <= 0;
             buff_is_one_b  <= 0;
         end else begin
@@ -23,7 +24,7 @@ module counter (
             buff_out_b = buff_out_b + 8'd1;
 
             buff_is_one_nb <= (buff_out_nb == 8'd1);
-            buff_is_one_b  <= (buff_out_b == 8'd1);
+            buff_is_one_b  <=  (buff_out_b == 8'd1);
         end
         $display("Active:   NB-OUT: %d, B-OUT: %d %t", out_nb, out_b, $time);
         $strobe("Postpone: NB-OUT: %d, B-OUT: %d %t", out_nb, out_b, $time);
