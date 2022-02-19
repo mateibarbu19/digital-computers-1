@@ -100,7 +100,7 @@ Go to the extensions settings in VSCodium and configure it like this:
 verilator
 
 # Verilog › Linting › Verilator: Arguments
--Wall -Wno-STMTDLY --bbox-unsup
+-Wall -Wno-STMTDLY -Wno-ASSIGNDLY --bbox-unsup --bbox-sys
 ```
 
 Note: If you took my advice and installed VSCodium, you'll need to enable the VSCode

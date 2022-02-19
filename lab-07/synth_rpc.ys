@@ -1,0 +1,22 @@
+# read design
+read_verilog -lib half_adder.v
+read_verilog -lib full_adder.v
+read_verilog rpc_adder.v
+
+# elaborate design hierarchy
+hierarchy -check -top rpc_adder
+
+# the high-level stuff
+proc; tribuf; opt; fsm; opt; memory; opt
+
+# mapping to internal cell library
+# this maps the design circuit to one bit gates, do not use this!!!
+# techmap; opt
+
+# cleanup
+clean
+
+write_json rpc_adder.json
+
+# view the resulting schematic
+show -colors 1 -stretch -prefix schematic rpc_adder
