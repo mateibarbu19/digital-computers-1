@@ -7,10 +7,10 @@ module cla_subtractor #(
     input  [NR_BITS-1:0] b
 );
 
-    // DONE 2: Implement a 4-bit carry-lookahead substractor
+    // DONE 2: Implement a 4-bit carry-lookahead subtractor
     cla_adder #(
         .NR_BITS(NR_BITS)
-    ) UUT (
+    ) internal_adder (
         .sum  (diff ),
         .c_out(c_out),
         .a    (a    ),

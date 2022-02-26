@@ -1,7 +1,8 @@
 CC = iverilog
 FLAGS = -Wall -Winfloop
 SIM = vvp
-TARGETS = adder_16.vvp cla_adder.vvp cla_subtractor.vvp rpc_adder.vvp
+TARGETS = adder_16.vvp cla_adder.vvp cla_subtractor.vvp rpc_adder.vvp \
+			ineff_cla_adder.vvp
 
 .PHONY: build clean
 
