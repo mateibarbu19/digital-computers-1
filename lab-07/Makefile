@@ -23,17 +23,9 @@ cla_subtractor.vvp: cla_adder.v cla_subtractor.v cla_subtractor_test.v
 adder_16.vvp: cla_adder.v adder_16.v adder_16_test.v
 	$(CC) $(FLAGS) -o $@ $^
 
-cla_adder.json: cla_adder.v synth_cla.ys
-	yosys synth_cla.ys
-	sed -i 's#reduce_##g' cla_adder.json cla_adder.json
-	rm -f *.pid
-
-ineff_cla_adder.json: ineff_cla_adder.v synth_ineff_cla.ys
-	yosys synth_ineff_cla.ys
-	rm -f *.pid
-
-rpc_adder.json: rpc_adder.v synth_rpc.ys
-	yosys synth_rpc.ys
+%.json: synth_%.ys %.v
+	yosys $<
+	sed -i 's#reduce_##g' $@
 	rm -f *.pid
 
 synthesis: cla_adder.json ineff_cla_adder.json rpc_adder.json
