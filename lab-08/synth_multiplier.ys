@@ -1,5 +1,7 @@
 # read design
 read_verilog -lib one_adder.v
+read_verilog -lib adder.v
+read_verilog -lib subtractor.v
 read_verilog multiplier.v
 
 # elaborate design hierarchy
