@@ -95,7 +95,7 @@ the described a hardware as in the following picture (see
 
 ![sch](res/counter.svg "Counter schematic")
 
-In [counter.v](counter.v) I have added two outputs:
+In the [counter](counter.v) module I have added two outputs:
 
 - `out_nb`: the output for the nonblocking incrementation
 - `out_b`: the output for the blocking incrementation
@@ -118,63 +118,72 @@ Postpone: NB-OUT:   2, B-OUT:   2                    4
 ```
 
 On the left column we read in what region the code was executed. For showing a
-output in the active event queue I used the `$display` directive. For showing a
-output in the active event queue I used the `$strobe` directive. (See [4].) I
-would like to remind the reader that the postponed queue is processed after
+output in the active events queue I used the `$display` directive. For showing a
+output in the postponed events queue I used the `$strobe` directive. (See [4].)
+I would like to remind the reader that the postponed queue is processed after
 nonblocking assignment updates.
 
 On the right most column we read the time. In between we have the values of the
-output that was either assigned with a nonblocking assignment or with a
-blocking one.
+output that was either assigned with a nonblocking assignment or with a blocking
+one.
 
 So we see that the waveform displays only the value after the simulator passed
 through all the regions. We know that regardless if we are using `<=` or `=` we
-can count that at the end of each time step the value will be the same, in this
-example.
+can count that at the end of each time step the value of `out_*` will be the
+same, in this example.
 
 *If the values are in the end the same, what is the difference?* Check the
-following two statements out. (Where buff_* is the internal register holding the
-value corresponding to the respective output.)
+following two statements out. (Where `buff_*` is the internal register holding
+the value corresponding to the respective output.)
 
 ```verilog
-buff_is_one_nb <= (buff_out_nb == 8'd1);
-buff_is_one_b  <= (buff_out_b == 8'd1);
+buff_out_nb <= buff_out_nb + 8'd1;
+buff_out_b = buff_out_b + 8'd1;
 
 buff_is_one_nb <= (buff_out_nb == 8'd1);
 buff_is_one_b  <= (buff_out_b == 8'd1);
 ```
 
+Note: Both `buff_is_one_*` could have been updated using `=` with no practical
+difference, the problem does not arise from there. 
+
 But if you look in the anterior waveform, you see that `is_one_nb` and
-`is_one_b` differ, the former "lagging" with one clock period. That is because
-right hand side terms, *or expressions in if statements*, are evaluated before
-updates of the left hand side of nonblocking assignments.
+`is_one_b` differ, the former "lagging" with one clock period. *Why is this?*
 
 ![sch](res/result.svg "Counter schematic result")
 
 ### Explanation
 
-As we see in this schematic the circuits for `out_nb` and `out_b` are the same.
+> **TL;DR**. The "lagging" is caused by right hand side terms that are evaluated
+> before updates of the left hand side of nonblocking assignments.
 
-Let's make one aspect clear. At each tick, when `buff_out_*` is incremented, we
-will see that change at the next posedge. So if we were to put an oscilloscope
-to monitor `out_*`, we cannot detect whether the internal incrementation has
-taken place. We are unaware of *any* internal changes just by looking at
-`out_*`. If you wish the internal incremented value would be displayed
-immediately on your scope, you would need to increase the clocks frequency. And
-if you cannot, you might say that on the scope you are not looking at a fresh
-value all the time, you might say you are looking at a outdated or old value,
-**but** keep in mind that there are no old values! For the values associated
-with `out_*` is whatever comes out their corresponding D flip flops.
+As we see in this schematic the circuits for `out_nb` and `out_b` are the same.
+Note that a clock cycle should be longer than the delay on the critical path
+(the delay from the adder + comparator + multiplexer).
+
+At each tick `buff_out_*` is incremented. That change will be seen on a posedge.
+Notice that `out_*` is not updated as soon as the incrementation finishes. *It is
+only updated on a posedge!*
+
+We are unaware of *any* internal changes just by looking at `out_*`. By
+increasing the clock frequency (to a certain limit) the output would be
+refreshed more often and the counter would also count faster.
+
+But keep in mind that **the values associated with `out_*` are whatever comes
+out their corresponding D flip flops, not the output of a adder**. The adder
+is only a intermediate on the path to the output.
+
+Let's look how this thinking applies when reading a line of code.
 
 ```
 buff_out_nb <= buff_out_nb + 1
 ```
 
 So a wrong way to read this would be: "`buff_out_nb` gets its value
-incremented at this moment in time". A correct way to read it would be:
+incremented at this moment in time". A better way to read it would be:
 "`buff_out_nb` will be updated, at the end of the time step, with a value, that
-happens to be made up by adding the value of `buff_out_nb` during this time step
-and `8'd1`". 
+is made up by adding the value of `buff_out_nb` during this time step
+and `8'd1` if the reset is not triggered.". 
 
 The comparison corresponding to `is_one_nb` uses as input the value of `out_nb`,
 i.e. the value that is the output of a D flip flop. Now, if you look at `out_b`
@@ -182,33 +191,33 @@ in the schematic and trace it to the adder, you will see that `out_b + 1` is
 feed as an input for the comparison corresponding to `is_one_b`.
 
 On the one hand, during the "procedures" of a step, `is_one_nb` uses the value
-of `out_nb` (and not the scheduled to be updated value_ as it's input. On the
+of `out_nb` (and not the scheduled to be updated value) as it's input. On the
 other hand, `is_one_b` uses an intermediate calculation, that is `out_b + 1` as
-input.
+it's input.
 
 **But here comes the comes the catch!** If in the simulation the value of
 `out_b` can be immediately updated, in the schematic that is impossible. In 
 order to mimic the simulation, the schematic compensates the lack of immediate
 updates. How? Instead of using the value `out_b` for comparison for `is_one_b`,
-it uses a "intermediate value of `out_b`", a soon to be attributed one.
+it uses the value of an intermediate point on the path of `out_b`.
 
 This explains why only at the next clock cycle can we compare the updated value
-of `out_b` with `8'd1`. Contrary to this, either the simulator or the synthesis
+of `out_nb` with `8'd1`. Contrary to this, either the simulator or the synthesis
 tool will find a way make it seem that `out_b` is updated immediately.
 
-The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).
+(The way Yosys interprets the counter module can be seen in [dummy.v](dummy.v).)
 
 ## Conclusion
 
 Anyone who understood the difference can see that this was actually a article
 about thinking in Verilog, rather that an unimportant programming quirk.
 
-If you want to keep writing Verilog simpler, just follow the guidelines
-formerly mentioned. Do not expect a register which is assigned with `<=` to be
-updated immediately. Do not expect to be able to use the RHS value of that
-assignment in the same clock cycle. This is why a code that was previously
-written using only `=` (which is a bad practice_ cannot be easily corrected to
-respect these guidelines.
+If you want to easily write Verilog, just follow the guidelines formerly
+mentioned. Do not expect a register which is assigned with `<=` to be updated
+immediately. Do not expect to be able to use the RHS value of that assignment
+in the same clock cycle. This is why a code that was previously written using
+only `=` (which is a bad practice) cannot be easily corrected to respect these
+guidelines.
 
 If you want to remember the difference between the two, always refer to either
 the IEEE Verilog Standard or the selected quotes from Cummings's (see [3])
@@ -217,7 +226,7 @@ article.
 <details closed>
 <summary>Yosys note</summary>
 Sometimes Yosys replaces blocking assignments in a sequential logic block with
-nonblocking ones. So the guidelines will prevent inconsistencies.
+nonblocking ones. So the guidelines will help you prevent inconsistencies.
 </details>
 
 
