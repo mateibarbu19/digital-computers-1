@@ -34,8 +34,6 @@ module test_alu ();
 	reg [3:0] A     ;
 	reg [3:0] B     ;
 
-	reg clk   ;
-
 	// checker
 	reg [7:0] respect;
 
@@ -53,7 +51,6 @@ module test_alu ();
 	initial begin
 		$dumpfile("alu_test.vcd");
 		$dumpvars(0, test_alu);
-		clk  = 0;
 
 		// Initialize Inputs
 		opcode = 0;
@@ -352,7 +349,7 @@ module test_alu ();
 		A =      4'b0010;
 		B =      4'b0000;
 		expected = 8'b0000_0000;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -369,7 +366,7 @@ module test_alu ();
 		A =      4'b0010;
 		B =      4'b0001;
 		expected = 8'b0000_0010;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -386,7 +383,7 @@ module test_alu ();
 		A =      4'b0010;
 		B =      4'b1111;
 		expected = 8'b1111_1110;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -403,7 +400,7 @@ module test_alu ();
 		A =      4'b0100;
 		B =      4'b0100;
 		expected = 8'b0001_0000;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -420,7 +417,7 @@ module test_alu ();
 		A =      4'b0100;
 		B =      4'b1100;
 		expected = 8'b1111_0000;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -437,7 +434,7 @@ module test_alu ();
 		A =      4'b1100;
 		B =      4'b0100;
 		expected = 8'b1111_0000;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
@@ -454,18 +451,46 @@ module test_alu ();
 		A =      4'b1100;
 		B =      4'b1100;
 		expected = 8'b0001_0000;
-		#10;
+		#20;
 		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
 			respect = respect + 1;
 		end
 		// =======================================================
 		// =======================================================
 
-		$display("ALU tests = %2d/23", respect);
+		// =======================================================
+		// TEST MUL: A = -1, B = -6
+		#10;
+		opname = "MUL";
+		opcode = 5'd16;
+		A =      4'b1111;
+		B =      4'b1010;
+		expected = 8'b0000_0110;
+		#20;
+		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
+			respect = respect + 1;
+		end
+		// =======================================================
+		// =======================================================
+
+		// =======================================================
+		// TEST MUL: A = -1, B = 5
+		#10;
+		opname = "MUL";
+		opcode = 5'd16;
+		A =      4'b1111;
+		B =      4'b0101;
+		expected = 8'b1111_1011;
+		#20;
+		if (1'b1 == tester(opname, opcode, expected, out, A, B)) begin
+			respect = respect + 1;
+		end
+		// =======================================================
+		// =======================================================
+
+		$display("ALU tests = %2d/25", respect);
 
 		$finish();
 	end
-
-	always #1 clk = ~clk;
 
 endmodule

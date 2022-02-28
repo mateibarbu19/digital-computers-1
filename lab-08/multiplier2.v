@@ -1,6 +1,7 @@
 `include "defines.vh"
+/* verilator lint_off UNUSED */
 
-module multiplier #(
+module multiplier2 #(
     parameter NR_BITS = 4
 ) (
     output [2*NR_BITS-1:0] out,
@@ -8,6 +9,23 @@ module multiplier #(
     input  [  NR_BITS-1:0] R
 );
     //  Implement Booth's algorithm
+
+    wire [NR_BITS-1:0] neg_M;
+    wire [NR_BITS-1:0] not_M;
+    /* verilator lint_off UNUSED */
+    wire               aux  ;
+    /* verilator lint_on UNUSED */
+
+    assign#(`DELAY) not_M = ~M;
+
+    // DONE: "neg_M = not_M + 1" using adder
+    one_adder #(
+        .NR_BITS(NR_BITS)
+    ) one_adder (
+        .sum  (neg_M),
+        .c_out(aux  ),
+        .a    (~M   )
+    );
 
     /* verilator lint_off UNOPTFLAT */
     wire [2*NR_BITS:0] P[NR_BITS:0];
@@ -19,12 +37,11 @@ module multiplier #(
     generate
         genvar i;
         for (i = 0; i < NR_BITS; i = i + 1) begin : booth_step
-            wire [NR_BITS-1:0] sum ;
-            wire [NR_BITS-1:0] diff;
+            wire [NR_BITS-1:0] sum             ;
+            wire [NR_BITS-1:0] diff            ;
             /* verilator lint_off UNUSED */
-            wire adder_c_out     ;
-            wire subtractor_c_out;
-            /* verilator lint_on UNUSED */
+            wire               adder_c_out     ;
+            wire               subtractor_c_out;
 
             wire [NR_BITS-1:0] head = P[i][2*NR_BITS:NR_BITS+1];
             wire [  NR_BITS:0] tail = P[i][NR_BITS:0]          ;
@@ -39,13 +56,14 @@ module multiplier #(
                 .c_in (1'd0       )
             );
 
-            subtractor #(
+            adder #(
                 .NR_BITS(NR_BITS)
             ) simple_subtractor (
-                .diff (diff            ),
+                .sum  (diff            ),
                 .c_out(subtractor_c_out),
                 .a    (head            ),
-                .b    (M               )
+                .b    (neg_M           ),
+                .c_in (1'd0            )
             );
 
             reg [NR_BITS-1:0] buff;

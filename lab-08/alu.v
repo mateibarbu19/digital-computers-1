@@ -40,10 +40,10 @@ module alu #(
     subtractor #(
         .NR_BITS(NR_BITS)
     ) simple_subtractor (
-        .diff(out_subtractor),
+        .diff (out_subtractor  ),
         .c_out(subtractor_c_out),
-        .a(in0        ),
-        .b(in1        )
+        .a    (in0             ),
+        .b    (in1             )
     );
 
     // DONE: use multiplier and put the result in out_multiplier
@@ -51,8 +51,8 @@ module alu #(
         .NR_BITS(NR_BITS)
     ) simple_multiplier (
         .out(out_multiplier),
-        .M(in0),
-        .R(in1)
+        .M  (in0           ),
+        .R  (in1           )
     );
 
     // sel == 1 => NAND
@@ -71,6 +71,7 @@ module alu #(
             default: out_res = {2*NR_BITS{1'bx}};
         endcase
     end
-    assign out = out_res;
+    assign #(2*`DELAY) out = out_res;
+    // the comparators add one delay, plus the multiplexer itself
 
 endmodule

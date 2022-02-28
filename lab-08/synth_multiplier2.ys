@@ -1,10 +1,11 @@
 # read design
+read_verilog -lib one_adder.v
 read_verilog -lib adder.v
 read_verilog -lib subtractor.v
-read_verilog multiplier.v
+read_verilog multiplier2.v
 
 # elaborate design hierarchy
-hierarchy -check -top multiplier
+hierarchy -check -top multiplier2
 
 # the high-level stuff
 proc; tribuf; opt; fsm; opt; memory; opt
@@ -16,7 +17,7 @@ proc; tribuf; opt; fsm; opt; memory; opt
 # cleanup
 clean
 
-write_json multiplier.json
+write_json multiplier2.json
 
 # view the resulting schematic
-show -colors 1 -stretch -prefix schematic multiplier
+show -colors 1 -stretch -prefix schematic multiplier2

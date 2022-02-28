@@ -10,13 +10,17 @@ module subtractor #(
 );
 
     // DONE 2: Implement a 4-bit carry-lookahead subtractor
+
+    wire [NR_BITS-1:0] not_b;
+    assign #(`DELAY) not_b = ~b;
+
     adder #(
         .NR_BITS(NR_BITS)
     ) internal_adder (
         .sum  (diff ),
         .c_out(c_out),
         .a    (a    ),
-        .b    (~b   ),
+        .b    (not_b),
         .c_in (1'b1 )
     );
 
